@@ -255,7 +255,7 @@ export default function MarketplacePage() {
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-4 py-6 sm:flex-row md:px-6">
           <span className="text-xs text-muted-foreground">
-            CampusBazaar — StudentMarketplace.sol
+            Campus Cart — StudentMarketplace.sol
           </span>
           <span className="font-mono text-xs text-muted-foreground">
             Connected to 0x3c34...b25f
