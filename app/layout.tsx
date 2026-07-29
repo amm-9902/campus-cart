@@ -1,30 +1,30 @@
-import { Analytics } from '@vercel/analytics/next'
-import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import { Toaster } from '@/components/ui/sonner'
-import './globals.css'
+import { Analytics } from "@vercel/analytics/next";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
+import "./globals.css";
 
-const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
+const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
 const geistMono = Geist_Mono({
-  subsets: ['latin'],
-  variable: '--font-geist-mono',
-})
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+});
 
 export const metadata: Metadata = {
-  title: 'CampusBazaar — Student Marketplace DApp',
+  title: "CampusCart — Student Marketplace DApp",
   description:
-    'A decentralized university marketplace. List items, buy with test ETH, all on-chain.',
-  generator: 'v0.app',
-}
+    "A decentralized university marketplace. List items, buy with test ETH, all on-chain.",
+  generator: "v0.app",
+};
 
 export const viewport: Viewport = {
-  themeColor: '#17181c',
-}
+  themeColor: "#17181c",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html
@@ -34,8 +34,8 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         {children}
         <Toaster position="bottom-right" />
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
     </html>
-  )
+  );
 }
