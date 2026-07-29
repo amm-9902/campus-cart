@@ -1,14 +1,15 @@
-'use client'
+"use client";
 
-import { Loader2, Wallet } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { truncateAddress } from '@/lib/marketplace'
+import { Loader2, Wallet } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { truncateAddress } from "@/lib/marketplace";
+import Logo from "./campus-cart-logo.png";
 
 interface SiteHeaderProps {
-  account: string | null
-  isConnecting: boolean
-  onConnect: () => void
-  onDisconnect: () => void
+  account: string | null;
+  isConnecting: boolean;
+  onConnect: () => void;
+  onDisconnect: () => void;
 }
 
 export function SiteHeader({
@@ -22,10 +23,14 @@ export function SiteHeader({
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2.5">
           <div className="flex size-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <span className="font-mono text-sm font-bold">CB</span>
+            <img
+              src={"./campus-cart-logo.png"}
+              alt="icon"
+              className="rounded"
+            />
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="text-sm font-semibold">CampusBazaar</span>
+            <span className="text-sm font-semibold">Campus Cart</span>
             <span className="text-xs text-muted-foreground">
               Student Marketplace DApp
             </span>
@@ -64,5 +69,5 @@ export function SiteHeader({
         )}
       </div>
     </header>
-  )
+  );
 }

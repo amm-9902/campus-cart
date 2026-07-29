@@ -1,6 +1,7 @@
 {
-  "name": "my-project",
+  "name": "campus-cart",
   "version": "0.1.0",
+  "description": "Marketplace DApp for not only students, but for everyone using Sepolia Testnet",
   "private": true,
   "scripts": {
     "dev": "next dev",
