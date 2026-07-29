@@ -70,7 +70,7 @@ export function ItemCard({
         </span>
       </div>
 
-      {/* ACTION BUTTONS */}
+      {/* ACTION BUTTONS: Buy or Cancel */}
       {isActive &&
         (isOwner ? (
           <Button
@@ -107,7 +107,7 @@ export function ItemCard({
           </Button>
         ))}
 
-      {/* Escrow Release Button (Visible Only to Buyer) */}
+      {/* Escrow Release Button (Visible ONLY to the Buyer when payment is locked) */}
       {item.isSold && item.paymentLocked && isBuyer && (
         <Button
           size="sm"

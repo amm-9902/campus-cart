@@ -17,12 +17,13 @@ import {
   truncateAddress,
 } from "@/lib/marketplace";
 
-type Filter = "all" | "available" | "mine";
+type Filter = "all" | "available" | "mine" | "purchases";
 
 const FILTERS: { key: Filter; label: string }[] = [
   { key: "all", label: "All items" },
   { key: "available", label: "Available" },
   { key: "mine", label: "My listings" },
+  { key: "purchases", label: "My purchases" },
 ];
 
 export default function MarketplacePage() {
@@ -33,6 +34,7 @@ export default function MarketplacePage() {
   const [pendingId, setPendingId] = useState<number | null>(null);
   const [filter, setFilter] = useState<Filter>("all");
 
+  // Load items from the blockchain on mount
   async function loadItems() {
     try {
       setLoading(true);
@@ -56,6 +58,10 @@ export default function MarketplacePage() {
     if (filter === "mine")
       return items.filter(
         (i) => i.seller.toLowerCase() === account?.toLowerCase(),
+      );
+    if (filter === "purchases")
+      return items.filter(
+        (i) => i.buyer?.toLowerCase() === account?.toLowerCase(),
       );
     return items;
   }, [items, filter, account]);
@@ -94,7 +100,7 @@ export default function MarketplacePage() {
       toast.success("Purchase confirmed", {
         description: `Tx ${truncateAddress(txHash)} mined`,
       });
-      await loadItems();
+      await loadItems(); // Refresh state from chain
     } catch (err: any) {
       toast.error(err.reason || err.message || "Purchase failed");
     } finally {
@@ -109,7 +115,7 @@ export default function MarketplacePage() {
       toast("Listing cancelled", {
         description: `Tx ${truncateAddress(txHash)} mined`,
       });
-      await loadItems();
+      await loadItems(); // Refresh state from chain
     } catch (err: any) {
       toast.error(err.reason || err.message || "Cancel failed");
     } finally {
@@ -139,7 +145,7 @@ export default function MarketplacePage() {
       toast.success("Item listed", {
         description: `Tx ${truncateAddress(txHash)} mined`,
       });
-      await loadItems();
+      await loadItems(); // Refresh state from chain
     } catch (err: any) {
       toast.error(err.reason || err.message || "Listing failed");
       throw err;
@@ -210,7 +216,9 @@ export default function MarketplacePage() {
                 key={f.key}
                 variant={filter === f.key ? "secondary" : "ghost"}
                 size="sm"
-                disabled={f.key === "mine" && !account}
+                disabled={
+                  (f.key === "mine" || f.key === "purchases") && !account
+                }
                 onClick={() => setFilter(f.key)}
               >
                 {f.label}
@@ -245,7 +253,9 @@ export default function MarketplacePage() {
             <p className="text-xs text-muted-foreground">
               {filter === "mine"
                 ? "Create your first listing to see it here."
-                : "Check back soon."}
+                : filter === "purchases"
+                  ? "You haven't bought any items yet."
+                  : "Check back soon."}
             </p>
           </section>
         )}

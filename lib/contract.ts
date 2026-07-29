@@ -1,3 +1,5 @@
+// lib/contract.ts
+
 export const MARKETPLACE_ADDRESS = "0x3c340cFb243B2943De8bcAb7179e044336bbb25f";
 
 export const MARKETPLACE_ABI = [
