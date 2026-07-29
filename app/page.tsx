@@ -33,7 +33,6 @@ export default function MarketplacePage() {
   const [pendingId, setPendingId] = useState<number | null>(null);
   const [filter, setFilter] = useState<Filter>("all");
 
-  // Load items from the blockchain on mount
   async function loadItems() {
     try {
       setLoading(true);
@@ -95,7 +94,7 @@ export default function MarketplacePage() {
       toast.success("Purchase confirmed", {
         description: `Tx ${truncateAddress(txHash)} mined`,
       });
-      await loadItems(); // Refresh state from chain
+      await loadItems();
     } catch (err: any) {
       toast.error(err.reason || err.message || "Purchase failed");
     } finally {
@@ -110,7 +109,7 @@ export default function MarketplacePage() {
       toast("Listing cancelled", {
         description: `Tx ${truncateAddress(txHash)} mined`,
       });
-      await loadItems(); // Refresh state from chain
+      await loadItems();
     } catch (err: any) {
       toast.error(err.reason || err.message || "Cancel failed");
     } finally {
@@ -140,7 +139,7 @@ export default function MarketplacePage() {
       toast.success("Item listed", {
         description: `Tx ${truncateAddress(txHash)} mined`,
       });
-      await loadItems(); // Refresh state from chain
+      await loadItems();
     } catch (err: any) {
       toast.error(err.reason || err.message || "Listing failed");
       throw err;
