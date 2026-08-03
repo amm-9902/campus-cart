@@ -140,6 +140,19 @@ export default function MarketplacePage() {
 
   async function handleCreate(name: string, priceEth: number) {
     if (!account) return;
+
+    const normalizedName = name.trim().toLowerCase();
+    const alreadyExists = items.some(
+      (item) => item.name.trim().toLowerCase() === normalizedName,
+    );
+
+    if (alreadyExists) {
+      toast.error("Item already exists", {
+        description: "Choose a different name for your listing.",
+      });
+      return;
+    }
+
     try {
       const txHash = await listNewItem(name, priceEth);
       toast.success("Item listed", {
