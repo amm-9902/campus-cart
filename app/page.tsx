@@ -34,7 +34,6 @@ export default function MarketplacePage() {
   const [pendingId, setPendingId] = useState<number | null>(null);
   const [filter, setFilter] = useState<Filter>("all");
 
-  // Load items from the blockchain on mount
   async function loadItems() {
     try {
       setLoading(true);
@@ -100,7 +99,7 @@ export default function MarketplacePage() {
       toast.success("Purchase confirmed", {
         description: `Tx ${truncateAddress(txHash)} mined`,
       });
-      await loadItems(); // Refresh state from chain
+      await loadItems();
     } catch (err: any) {
       toast.error(err.reason || err.message || "Purchase failed");
     } finally {
@@ -115,7 +114,7 @@ export default function MarketplacePage() {
       toast("Listing cancelled", {
         description: `Tx ${truncateAddress(txHash)} mined`,
       });
-      await loadItems(); // Refresh state from chain
+      await loadItems();
     } catch (err: any) {
       toast.error(err.reason || err.message || "Cancel failed");
     } finally {
@@ -138,7 +137,12 @@ export default function MarketplacePage() {
     }
   }
 
-  async function handleCreate(name: string, priceEth: number) {
+  // UPDATED: Now accepts imageUrl
+  async function handleCreate(
+    name: string,
+    imageUrl: string,
+    priceEth: number,
+  ) {
     if (!account) return;
 
     const normalizedName = name.trim().toLowerCase();
@@ -154,11 +158,11 @@ export default function MarketplacePage() {
     }
 
     try {
-      const txHash = await listNewItem(name, priceEth);
+      const txHash = await listNewItem(name, imageUrl, priceEth);
       toast.success("Item listed", {
         description: `Tx ${truncateAddress(txHash)} mined`,
       });
-      await loadItems(); // Refresh state from chain
+      await loadItems();
     } catch (err: any) {
       toast.error(err.reason || err.message || "Listing failed");
       throw err;
@@ -175,7 +179,6 @@ export default function MarketplacePage() {
       />
 
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10 md:px-6">
-        {/* Hero Section */}
         <section className="mb-10 flex flex-col gap-4">
           <div className="flex w-fit items-center gap-2 rounded-full border border-border bg-card px-3 py-1">
             <span
@@ -217,7 +220,6 @@ export default function MarketplacePage() {
           </div>
         </section>
 
-        {/* Toolbar */}
         <section className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <div
             className="flex items-center gap-1.5"
@@ -241,7 +243,6 @@ export default function MarketplacePage() {
           <CreateListingDialog account={account} onCreate={handleCreate} />
         </section>
 
-        {/* Grid */}
         {loading ? (
           <div className="py-16 text-center text-sm text-muted-foreground">
             Loading items from smart contract...

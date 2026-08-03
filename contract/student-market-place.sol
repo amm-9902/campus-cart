@@ -9,6 +9,7 @@ contract StudentMarketplace {
         uint id;
         address payable seller;
         string name;
+        string imageUrl; // ADDED
         uint price;
         bool isSold;
         bool isCancelled;
@@ -19,12 +20,12 @@ contract StudentMarketplace {
     mapping(uint => address payable) public buyers;
     mapping(uint => bool) public paymentLocked;
 
-    event ItemListed(uint id, address seller, string name, uint price);
+    event ItemListed(uint id, address seller, string name, string imageUrl, uint price); // UPDATED
     event ItemSold(uint id, address buyer, address seller, string name, uint price);
     event ItemCancelled(uint id, address seller);
     event PaymentReleased(uint id, address buyer, address seller, uint amount);
 
-    function createListing(string memory _name, uint _price) public {
+    function createListing(string memory _name, string memory _imageUrl, uint _price) public { // UPDATED
         require(bytes(_name).length > 0, "Item name cannot be empty");
         require(_price > 0, "Item price must be greater than zero");
 
@@ -34,12 +35,13 @@ contract StudentMarketplace {
             itemCount,
             payable(msg.sender),
             _name,
+            _imageUrl, // ADDED
             _price,
             false,
             false
         );
 
-        emit ItemListed(itemCount, msg.sender, _name, _price);
+        emit ItemListed(itemCount, msg.sender, _name, _imageUrl, _price);
     }
 
     function buyItem(uint _id) public payable {
@@ -81,7 +83,9 @@ contract StudentMarketplace {
 
         paymentLocked[_id] = false;
 
-        item.seller.transfer(item.price);
+        (bool success, ) = payable(item.seller).call{value: item.price}("");
+        require(success, "Transfer failed.");
+
 
         emit PaymentReleased(
             _id,

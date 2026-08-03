@@ -1,24 +1,42 @@
 // lib/contract.ts
 
-export const MARKETPLACE_ADDRESS = "0x3c340cFb243B2943De8bcAb7179e044336bbb25f";
+export const MARKETPLACE_ADDRESS = "0x7d64B4f27F653de6F1fBB4e8e57A599c4fF7d95E";
 
 export const MARKETPLACE_ABI = [
   {
-    inputs: [{ internalType: "uint256", name: "_id", type: "uint256" }],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
     name: "buyItem",
     outputs: [],
     stateMutability: "payable",
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "_id", type: "uint256" }],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
     name: "cancelListing",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "_id", type: "uint256" }],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
     name: "confirmReceived",
     outputs: [],
     stateMutability: "nonpayable",
@@ -26,8 +44,21 @@ export const MARKETPLACE_ABI = [
   },
   {
     inputs: [
-      { internalType: "string", name: "_name", type: "string" },
-      { internalType: "uint256", name: "_price", type: "uint256" },
+      {
+        internalType: "string",
+        name: "_name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_imageUrl",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_price",
+        type: "uint256",
+      },
     ],
     name: "createListing",
     outputs: [],
@@ -37,7 +68,12 @@ export const MARKETPLACE_ABI = [
   {
     anonymous: false,
     inputs: [
-      { indexed: false, internalType: "uint256", name: "id", type: "uint256" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
       {
         indexed: false,
         internalType: "address",
@@ -51,14 +87,30 @@ export const MARKETPLACE_ABI = [
   {
     anonymous: false,
     inputs: [
-      { indexed: false, internalType: "uint256", name: "id", type: "uint256" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
       {
         indexed: false,
         internalType: "address",
         name: "seller",
         type: "address",
       },
-      { indexed: false, internalType: "string", name: "name", type: "string" },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "imageUrl",
+        type: "string",
+      },
       {
         indexed: false,
         internalType: "uint256",
@@ -72,7 +124,12 @@ export const MARKETPLACE_ABI = [
   {
     anonymous: false,
     inputs: [
-      { indexed: false, internalType: "uint256", name: "id", type: "uint256" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
       {
         indexed: false,
         internalType: "address",
@@ -85,7 +142,12 @@ export const MARKETPLACE_ABI = [
         name: "seller",
         type: "address",
       },
-      { indexed: false, internalType: "string", name: "name", type: "string" },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
       {
         indexed: false,
         internalType: "uint256",
@@ -99,7 +161,12 @@ export const MARKETPLACE_ABI = [
   {
     anonymous: false,
     inputs: [
-      { indexed: false, internalType: "uint256", name: "id", type: "uint256" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
       {
         indexed: false,
         internalType: "address",
@@ -123,45 +190,122 @@ export const MARKETPLACE_ABI = [
     type: "event",
   },
   {
-    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
     name: "buyers",
-    outputs: [{ internalType: "address payable", name: "", type: "address" }],
+    outputs: [
+      {
+        internalType: "address payable",
+        name: "",
+        type: "address",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "_id", type: "uint256" }],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "_id",
+        type: "uint256",
+      },
+    ],
     name: "isPaymentLocked",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
   {
     inputs: [],
     name: "itemCount",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    name: "items",
     outputs: [
-      { internalType: "uint256", name: "id", type: "uint256" },
-      { internalType: "address payable", name: "seller", type: "address" },
-      { internalType: "string", name: "name", type: "string" },
-      { internalType: "uint256", name: "price", type: "uint256" },
-      { internalType: "bool", name: "isSold", type: "bool" },
-      { internalType: "bool", name: "isCancelled", type: "bool" },
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
     ],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    name: "paymentLocked",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "items",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "id",
+        type: "uint256",
+      },
+      {
+        internalType: "address payable",
+        name: "seller",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "name",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "imageUrl",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "price",
+        type: "uint256",
+      },
+      {
+        internalType: "bool",
+        name: "isSold",
+        type: "bool",
+      },
+      {
+        internalType: "bool",
+        name: "isCancelled",
+        type: "bool",
+      },
+    ],
     stateMutability: "view",
     type: "function",
   },
-] as const;
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "paymentLocked",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+];
